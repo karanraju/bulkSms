@@ -70,8 +70,7 @@ var routes = [
 
   {
     path: "/note book",
-    name: "note book",
-    rtlName: "إخطارات",
+    name: "Phone Book",
     icon: "tim-icons icon-bell-55",
     component: <PhoneBook />,
     layout: "/admin",
@@ -80,7 +79,6 @@ var routes = [
   {
     path: "/user-profile",
     name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: <UserProfile />,
     layout: "/admin",
@@ -88,7 +86,6 @@ var routes = [
   {
     path: "/tables",
     name: "Table List",
-    rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",
     component: <TableList />,
     layout: "/admin",
@@ -113,7 +110,6 @@ var routes = [
   {
     path: "/typography",
     name: "Typography",
-    rtlName: "طباعة",
     icon: "tim-icons icon-align-center",
     component: <Typography />,
     layout: "/admin",

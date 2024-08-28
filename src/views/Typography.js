@@ -267,17 +267,44 @@ function Typography({}) {
   const [startDate, setStartDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [item, setitem] = useState();
+  console.log("itemmm", item);
   const [collectData, setCollectData] = useState();
   console.log("collectData", collectData);
   const [message, setMessage] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [phoneBookNumber, setPhoneBookNumber] = useState([]);
+  // console.log("phoneBookNumber", phoneBookNumber);
   console.log("messagess", message);
 
   const location = useLocation();
-  console.log("location", location);
-  const { id, name } = location.state || {};
-  console.log("name", name);
+  console.log(
+    "name"
+    // Object.values(?.[1]?.PhoneNumber).join("")
+  );
+
+  useState(() => {
+    if (location) {
+      // let numbers = location?.state?.map(
+      //   (item) => console.log("item", Object?.values(item?.PhoneNumber))
+      //   // Object.values(item?.PhoneNumber)
+      // );
+      console.log(
+        "numbersraju",
+        location?.state?.forEach((element) => {
+          setPhoneBookNumber((prev) => [...prev, element?.PhoneNumber]);
+          setitem(phoneBookNumber);
+          console.log("element", element?.PhoneNumber);
+          // Object.values(element?.PhoneNumber).join("");
+        })
+      );
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (phoneBookNumber) {
+    }
+  }, [phoneBookNumber]);
   // console.log("collectData", collectData);
 
   const handleMessage = async (values) => {
@@ -480,7 +507,9 @@ function Typography({}) {
                               name="number"
                               key={item}
                               placeholder="mobile number"
-                              defaultValue={item}
+                              defaultValue={
+                                phoneBookNumber ? phoneBookNumber : item
+                              }
                               onChange={handleChange}
                             />
                             {/* <Form.Control

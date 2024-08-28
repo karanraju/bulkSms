@@ -51,7 +51,7 @@ function PhoneBook() {
   const navigate = useNavigate();
   console.log("listNumber", listNumber);
   console.log("arrayNumber", arrayNumber);
-  const dataToPass = { id: 1, data: arrayNumber };
+  // const dataToPass = { id: 1, data: arrayNumber };
 
   useEffect(() => {
     if (arrayNumber.includes(condition)) {
@@ -79,6 +79,7 @@ function PhoneBook() {
       },
     });
     const result = await response.json();
+    setmodalSearch(false);
     console.log("result", result);
     // setLoginDataSatus(result);
     // setSignupData(result);
@@ -262,14 +263,21 @@ function PhoneBook() {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <CardTitle tag="h4">USA</CardTitle>
+                  <CardTitle tag="h4">Phone Book</CardTitle>
                   <button type="button" onClick={toggleModalSearch}>
                     Add Number
                   </button>
                 </div>
               </CardHeader>
-              <CardBody>
-                {Data?.map((item) => (
+              <CardBody
+                style={{
+                  height: "400px",
+                  scrollbarWidth: "none",
+                  overflow: "auto",
+                  // overflowY: "hidden",
+                }}
+              >
+                {listNumber?.data?.map((item) => (
                   <Alert
                     color={arrayNumber?.includes(item) ? "info" : "primary"}
                   >
@@ -280,8 +288,8 @@ function PhoneBook() {
                       }}
                       onClick={() => setCondition(item)}
                     >
-                      <span>{item.name}</span>
-                      <span>{item.phoneNumber}</span>
+                      <span>{item.Name}</span>
+                      <span>{item.PhoneNumber}</span>
                     </div>
                   </Alert>
                 ))}
@@ -332,7 +340,9 @@ function PhoneBook() {
               >
                 <div
                   style={{ color: "white" }}
-                  onClick={() => navigate("/typography", { state: dataToPass })}
+                  onClick={() =>
+                    navigate("/typography", { state: arrayNumber })
+                  }
                 >
                   Send
                 </div>
