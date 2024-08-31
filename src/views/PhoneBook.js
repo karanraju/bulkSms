@@ -71,7 +71,7 @@ function PhoneBook() {
 
     console.log("payload", payload);
     // console.log("Success:", values, payload);
-    const response = await fetch("http://localhost:3000/phoneNumber", {
+    const response = await fetch(`${process.env.REACT_APP_API}/phoneNumber`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -88,7 +88,7 @@ function PhoneBook() {
   };
 
   const handleContact = async () => {
-    const response = await fetch("http://localhost:3000/listContact", {
+    const response = await fetch(`${process.env.REACT_APP_API}/listContact`, {
       method: "GET",
       // body: JSON.stringify(payload),
       headers: {

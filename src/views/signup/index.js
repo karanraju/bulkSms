@@ -69,7 +69,7 @@ export const SignUp = () => {
       //   : null,
     };
     console.log("Success:", values, payload);
-    const response = await fetch("http://localhost:3000/api/signUp", {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/signUp`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -89,7 +89,7 @@ export const SignUp = () => {
 
     console.log("payload", payload);
     // console.log("Success:", values, payload);
-    const response = await fetch("http://localhost:3000/api/setpassword", {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/setpassword`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {
@@ -111,7 +111,7 @@ export const SignUp = () => {
 
     console.log("payload", payload);
     // console.log("Success:", values, payload);
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch(`${process.env.REACT_APP_API}/login`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {

@@ -33,7 +33,7 @@ function Tables() {
   console.log("itemmm", Item?.data?.[0]);
 
   const onLogin = async () => {
-    const response = await fetch("http://localhost:3000/smsData", {
+    const response = await fetch(`${process.env.REACT_APP_API}/smsData`, {
       method: "GET",
       // body: JSON.stringify(payload),
       headers: {

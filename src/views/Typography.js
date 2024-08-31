@@ -314,7 +314,7 @@ function Typography({}) {
       message: collectData?.message,
     };
     console.log("Success:", values, payload);
-    const response = await fetch("http://localhost:3000/api/twillio", {
+    const response = await fetch(`${process.env.REACT_APP_API}/api/twillio`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {

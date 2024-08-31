@@ -77,7 +77,7 @@ function Notifications() {
   };
 
   const handleContact = async () => {
-    const response = await fetch("http://localhost:3000/listCountryNumber", {
+    const response = await fetch(`${process.env.REACT_APP_API}/listCountryNumber`, {
       method: "GET",
       // body: JSON.stringify(payload),
       headers: {
