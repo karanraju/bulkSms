@@ -79,6 +79,7 @@ function PhoneBook() {
       },
     });
     const result = await response.json();
+    console.log("result", result);
     setmodalSearch(false);
     console.log("result", result);
     // setLoginDataSatus(result);
@@ -105,6 +106,10 @@ function PhoneBook() {
   useEffect(() => {
     handleContact();
   }, []);
+
+  useEffect(() => {
+    handleContact();
+  }, [modalSearch]);
 
   useEffect(() => {
     if (PhoneNumber) {
@@ -187,7 +192,7 @@ function PhoneBook() {
                         <label>Name</label>
                         <Input
                           name="Name"
-                          defaultValue="Mike"
+                          // defaultValue="Mike"
                           placeholder="Name"
                           type="text"
                           onChange={handleChange}
@@ -208,7 +213,7 @@ function PhoneBook() {
                         <label>PhoneNumber</label>
                         <Input
                           name="PhoneNumber"
-                          defaultValue="Andrew"
+                          // defaultValue="Andrew"
                           placeholder="PhoneNumber"
                           type="text"
                           onChange={handleChange}
@@ -277,7 +282,7 @@ function PhoneBook() {
                   // overflowY: "hidden",
                 }}
               >
-                {listNumber?.data?.map((item) => (
+                {listNumber?.dataNumber?.map((item) => (
                   <Alert
                     color={arrayNumber?.includes(item) ? "info" : "primary"}
                   >

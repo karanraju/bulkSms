@@ -180,7 +180,7 @@ function AdminNavbar(props) {
         toggle={toggleModalSearch}
       >
         <ModalHeader>
-          <Input placeholder="SEARCH" type="text" />
+          <Input placeholder="SEARCHHH" type="text" />
           <button
             aria-label="Close"
             className="close"
