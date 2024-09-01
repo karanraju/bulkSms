@@ -19,6 +19,7 @@ import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
+import NumberAdd from "views/NumberAdd";
 import PhoneBook from "views/PhoneBook";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
@@ -83,6 +84,7 @@ var routes = [
     component: <UserProfile />,
     layout: "/admin",
   },
+
   {
     path: "/tables",
     name: "Table List",
@@ -106,6 +108,15 @@ var routes = [
   //   component: <Rtl />,
   //   layout: "/rtl",
   // },
+
+  {
+    path: "/numberAdd",
+    name: "NumberAdd",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-bell-55",
+    component: <NumberAdd />,
+    layout: "/admin",
+  },
 
   {
     path: "/typography",

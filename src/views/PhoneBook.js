@@ -46,12 +46,18 @@ function PhoneBook() {
   const [PhoneNumber, setPhoneNumber] = React.useState();
   const [listNumber, setlistNumber] = React.useState();
   const [condition, setCondition] = React.useState("");
+  const [searchNumber, setSearchNumber] = React.useState("");
+  console.log("searchNumber", searchNumber);
   console.log("condition", condition);
   const [arrayNumber, setArrayNumber] = React.useState([]);
   const navigate = useNavigate();
   console.log("listNumber", listNumber);
   console.log("arrayNumber", arrayNumber);
   // const dataToPass = { id: 1, data: arrayNumber };
+
+  function handleChange(event) {
+    console.log(event.target.value);
+  }
 
   useEffect(() => {
     if (arrayNumber.includes(condition)) {
@@ -96,6 +102,7 @@ function PhoneBook() {
       },
     });
     const result = await response.json();
+    console.log("result", result);
     console.log("result", result);
     setlistNumber(result);
     // setLoginDataSatus(result);
@@ -266,9 +273,21 @@ function PhoneBook() {
             <Card>
               <CardHeader>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{ display: "flex", justifyContent: "space-around" }}
                 >
-                  <CardTitle tag="h4">Phone Book</CardTitle>
+                  {/* <CardTitle tag="h4">Phone Book</CardTitle> */}
+                  <div>
+                    <CardTitle tag="h5">
+                      {" "}
+                      <Input
+                        style={{ width: 500, marginHorizontal: "20px" }}
+                        placeholder="UserName"
+                        className="border-2  border-primary"
+                        onChange={handleChange}
+                      />
+                    </CardTitle>
+                  </div>
+                  <div style={{ width: 520, height: 30 }}></div>
                   <button type="button" onClick={toggleModalSearch}>
                     Add Number
                   </button>
