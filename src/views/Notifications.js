@@ -77,15 +77,17 @@ function Notifications() {
   };
 
   const handleContact = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API}/listCountryNumber`, {
-      method: "GET",
-      // body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/listCountryNumber`,
+      {
+        method: "GET",
+        // body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
-    console.log("result", result);
     setlistNumber(result);
     // setLoginDataSatus(result);
     // setSignupData(result);
@@ -109,38 +111,22 @@ function Notifications() {
                 <CardTitle tag="h4">USA</CardTitle>
               </CardHeader>
               <CardBody>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
+                {listNumber?.data?.map(
+                  (item) =>
+                    item?.Country == "usa" && (
+                      <Alert color="info">
+                        <div
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                          }}
+                        >
+                          <span>{item?.PhoneNumber}</span>
+                          <span>BUY</span>
+                        </div>
+                      </Alert>
+                    )
+                )}
               </CardBody>
             </Card>
           </Col>
@@ -150,38 +136,22 @@ function Notifications() {
                 <CardTitle tag="h4">CANADA</CardTitle>
               </CardHeader>
               <CardBody>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
+                {listNumber?.data?.map(
+                  (item) =>
+                    item?.Country == "canada" && (
+                      <Alert color="info">
+                        <div
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                          }}
+                        >
+                          <span>{item?.PhoneNumber}</span>
+                          <span>BUY</span>
+                        </div>
+                      </Alert>
+                    )
+                )}
               </CardBody>
             </Card>
           </Col>

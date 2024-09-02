@@ -14,12 +14,15 @@ import {
   Input,
   Row,
   Col,
+  Modal,
+  ModalHeader,
 } from "reactstrap";
 
 function NumberAdd() {
   const [collectData, setCollectData] = useState();
+  const [modalSearch, setmodalSearch] = React.useState(false);
   const [SignupData, setSignupData] = useState();
-  console.log("collectData", collectData);
+  console.log("collectData", SignupData);
 
   const onFinish = async (values) => {
     console.log("collectData", collectData);
@@ -51,8 +54,42 @@ function NumberAdd() {
       onFinish();
     }
   }, [collectData]);
+
+  useEffect(() => {
+    if (SignupData?.type == "success") {
+      setmodalSearch(!modalSearch);
+    }
+  }, [SignupData]);
+
+  const toggleModalSearch = () => {
+    setmodalSearch(!modalSearch);
+  };
+
   return (
     <>
+      <Modal
+        modalClassName="modal-search"
+        isOpen={modalSearch}
+        toggle={toggleModalSearch}
+      >
+        <ModalHeader>
+          <Row>
+            <Col md="12" style={{ color: "white" }}>
+              Number Added
+            </Col>
+          </Row>
+          <button
+            aria-label="Close"
+            className="close"
+            onClick={toggleModalSearch}
+          >
+            <i
+              className="tim-icons icon-simple-remove"
+              style={{ color: "white", marginTop: "-25px"}}
+            />
+          </button>
+        </ModalHeader>
+      </Modal>
       <div className="content">
         <Row>
           <Col md="12">
