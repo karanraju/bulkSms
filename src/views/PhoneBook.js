@@ -20,6 +20,7 @@ import React, { useEffect } from "react";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 // reactstrap components
 import {
@@ -45,19 +46,31 @@ function PhoneBook() {
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [PhoneNumber, setPhoneNumber] = React.useState();
   const [listNumber, setlistNumber] = React.useState();
+  console.log("listNumber", listNumber);
   const [condition, setCondition] = React.useState("");
   const [searchNumber, setSearchNumber] = React.useState("");
-  console.log("searchNumber", searchNumber);
-  console.log("condition", condition);
+  const [searchText, setSearchText] = React.useState("");
   const [arrayNumber, setArrayNumber] = React.useState([]);
+  const [dataList, setdataList] = React.useState([]);
+  console.log("arrayNumber", dataList);
+  // console.log("dataList", dataList);
+
   const navigate = useNavigate();
-  console.log("listNumber", listNumber);
-  console.log("arrayNumber", arrayNumber);
-  // const dataToPass = { id: 1, data: arrayNumber };
 
   function handleChange(event) {
     console.log(event.target.value);
+    setSearchText(event.target.value);
   }
+
+  useEffect(() => {
+    if (searchText) {
+      const filteredUsers = listNumber?.dataNumber.filter((user) =>
+        user.Name.includes(searchText)
+      );
+      setdataList(filteredUsers);
+      console.log("filteredUsers", filteredUsers);
+    }
+  }, [searchText]);
 
   useEffect(() => {
     if (arrayNumber.includes(condition)) {
@@ -167,6 +180,18 @@ function PhoneBook() {
   const toggleModalSearch = () => {
     setmodalSearch(!modalSearch);
   };
+
+  const SignupSchema = Yup.object().shape({
+    Name: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    PhoneNumber: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+  });
+
   return (
     <>
       <Modal
@@ -190,6 +215,7 @@ function PhoneBook() {
                 Name: "",
                 PhoneNumber: "",
               }}
+              validationSchema={SignupSchema}
             >
               {({ handleSubmit, handleChange, values, touched, errors }) => (
                 <Form onSubmit={handleSubmit}>
@@ -209,6 +235,9 @@ function PhoneBook() {
                             backgroundColor: "white",
                           }}
                         />
+                        {errors.Name && touched.Name ? (
+                          <div>{errors.Name}</div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col
@@ -226,6 +255,9 @@ function PhoneBook() {
                           onChange={handleChange}
                           style={{ backgroundColor: "white" }}
                         />
+                        {errors.PhoneNumber && touched.PhoneNumber ? (
+                          <div>{errors.PhoneNumber}</div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col>
@@ -293,31 +325,32 @@ function PhoneBook() {
                   </button>
                 </div>
               </CardHeader>
-              <CardBody
-                style={{
-                  height: "400px",
-                  scrollbarWidth: "none",
-                  overflow: "auto",
-                  // overflowY: "hidden",
-                }}
-              >
-                {listNumber?.dataNumber?.map((item) => (
-                  <Alert
-                    color={arrayNumber?.includes(item) ? "info" : "primary"}
-                  >
-                    <div
-                      style={{
-                        justifyContent: "space-between",
-                        display: "flex",
-                      }}
-                      onClick={() => setCondition(item)}
+              {dataList?.length > 0 ? (
+                <CardBody
+                  style={{
+                    height: "400px",
+                    scrollbarWidth: "none",
+                    overflow: "auto",
+                    // overflowY: "hidden",
+                  }}
+                >
+                  {dataList?.map((item) => (
+                    <Alert
+                      color={arrayNumber?.includes(item) ? "info" : "primary"}
                     >
-                      <span>{item.Name}</span>
-                      <span>{item.PhoneNumber}</span>
-                    </div>
-                  </Alert>
-                ))}
-                {/* <Alert color="info">
+                      <div
+                        style={{
+                          justifyContent: "space-between",
+                          display: "flex",
+                        }}
+                        onClick={() => setCondition(item)}
+                      >
+                        <span>{item.Name}</span>
+                        <span>{item.PhoneNumber}</span>
+                      </div>
+                    </Alert>
+                  ))}
+                  {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
@@ -325,7 +358,7 @@ function PhoneBook() {
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert> */}
-                {/* <Alert color="info">
+                  {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
@@ -333,7 +366,7 @@ function PhoneBook() {
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert> */}
-                {/* <Alert color="info">
+                  {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
@@ -341,7 +374,7 @@ function PhoneBook() {
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert> */}
-                {/* <Alert color="info">
+                  {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
@@ -349,7 +382,68 @@ function PhoneBook() {
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert> */}
-              </CardBody>
+                </CardBody>
+              ) : (
+                <div>
+                  <CardBody
+                    style={{
+                      height: "400px",
+                      scrollbarWidth: "none",
+                      overflow: "auto",
+                      // overflowY: "hidden",
+                    }}
+                  >
+                    {listNumber?.dataNumber.map((item) => (
+                      <Alert
+                        color={arrayNumber?.includes(item) ? "info" : "primary"}
+                      >
+                        <div
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                          }}
+                          onClick={() => setCondition(item)}
+                        >
+                          <span>{item.Name}</span>
+                          <span>{item.PhoneNumber}</span>
+                        </div>
+                      </Alert>
+                    ))}
+                    {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                    {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                    {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                    {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                  </CardBody>
+                </div>
+              )}
 
               <div
                 style={{

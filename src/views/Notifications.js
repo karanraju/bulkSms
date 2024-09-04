@@ -106,7 +106,13 @@ function Notifications() {
         </div>
         <Row>
           <Col md="6">
-            <Card>
+            <Card
+              style={{
+                height: "400px",
+                scrollbarWidth: "none",
+                overflow: "auto",
+              }}
+            >
               <CardHeader>
                 <CardTitle tag="h4">USA</CardTitle>
               </CardHeader>
@@ -131,7 +137,13 @@ function Notifications() {
             </Card>
           </Col>
           <Col md="6">
-            <Card>
+            <Card
+              style={{
+                height: "400px",
+                scrollbarWidth: "none",
+                overflow: "auto",
+              }}
+            >
               <CardHeader>
                 <CardTitle tag="h4">CANADA</CardTitle>
               </CardHeader>
