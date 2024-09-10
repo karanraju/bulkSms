@@ -31,11 +31,14 @@ import {
   Input,
   Row,
   Col,
+  Modal,
+  ModalHeader,
 } from "reactstrap";
 
 function UserProfile() {
   const [collectData, setCollectData] = useState();
   const [SignupData, setSignupData] = useState();
+  const [modalSearch, setmodalSearch] = useState(false);
   console.log("collectData", collectData);
 
   const onFinish = async (values) => {
@@ -63,6 +66,7 @@ function UserProfile() {
     });
     const result = await response.json();
     setSignupData(result);
+    setmodalSearch(true);
     console.log("********", result);
   };
 
@@ -72,8 +76,36 @@ function UserProfile() {
     }
   }, [collectData]);
 
+  const toggleModalSearch = () => {
+    setmodalSearch(!modalSearch);
+  };
+
   return (
     <>
+      <Modal
+        modalClassName="modal-search"
+        isOpen={modalSearch}
+        toggle={toggleModalSearch}
+      >
+        <ModalHeader>
+          <Row>
+            <Col md="12" style={{ color: "white" }}>
+              Profile Updated
+            </Col>
+          </Row>
+          <button
+            aria-label="Close"
+            className="close"
+            onClick={toggleModalSearch}
+          >
+            <i
+              className="tim-icons icon-simple-remove"
+              style={{ color: "white", marginTop: "-25px" }}
+            />
+          </button>
+        </ModalHeader>
+      </Modal>
+
       <div className="content">
         <Row>
           <Col md="8">

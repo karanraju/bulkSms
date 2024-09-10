@@ -53,6 +53,9 @@ import {
 
 function Dashboard() {
   const [bigChartData, setbigChartData] = React.useState("data1");
+  const [listNumber, setlistNumber] = React.useState();
+  let number = listNumber?.data?.slice(0, 7);
+  console.log("number", number);
   const setBgChartData = (name) => {
     setbigChartData(name);
   };
@@ -80,9 +83,29 @@ function Dashboard() {
     // console.log("********", result);
   };
 
+  const handleContact = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/listCountryNumber`,
+      {
+        method: "GET",
+        // body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+    setlistNumber(result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
   useEffect(() => {
     onLogin();
+    handleContact();
   }, []);
+
   return (
     <>
       <div className="content">
@@ -265,109 +288,47 @@ function Dashboard() {
                 <div className="table-full-width table-responsive">
                   <Table>
                     <tbody>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Update the Documentation</p>
-                          <p className="text-muted">{Item?.data?.[0]?.BODY}</p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip636901683"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip636901683"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input
-                                defaultChecked
-                                defaultValue=""
-                                type="checkbox"
-                              />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">GDPR Compliance</p>
-                          <p className="text-muted">{Item?.data?.[0]?.BODY}</p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip457194718"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip457194718"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Solve the issues</p>
-                          <p className="text-muted">{Item?.data?.[0]?.BODY}</p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip362404923"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip362404923"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
+                      {number?.map((item) => {
+                        return (
+                          
+                          <tr>
+                            <td>
+                              <FormGroup check>
+                                <Label check>
+                                  <Input defaultValue="" type="checkbox" />
+                                  <span className="form-check-sign">
+                                    <span className="check" />
+                                  </span>
+                                </Label>
+                              </FormGroup>
+                            </td>
+                            <td>
+                              <p className="title">Update the Documentation</p>
+                              <p className="text-muted">{item?.Country}</p>
+                            </td>
+                            <td className="td-actions text-right">
+                              <Button
+                                color="link"
+                                id="tooltip636901683"
+                                title=""
+                                type="button"
+                              >
+                                <p className="text-muted">
+                                  {item?.PhoneNumber}
+                                </p>
+                                {/* <i className="tim-icons icon-pencil" /> */}
+                              </Button>
+                              <UncontrolledTooltip
+                                delay={0}
+                                target="tooltip636901683"
+                                placement="right"
+                              >
+                                Edit Task
+                              </UncontrolledTooltip>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </Table>
                 </div>
@@ -383,37 +344,23 @@ function Dashboard() {
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-center">Salary</th>
+                      <th>Number</th>
+                      <th>Number</th>
+                      <th>Status</th>
+                      <th className="text-center">Body</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
+                    {Item?.data?.map((item) => {
+                      return (
+                        <tr>
+                          <td>{item?.ToNumber}</td>
+                          <td>{item?.fromNumber}</td>
+                          <td>{item?.status}</td>
+                          <td className="text-center">{item?.BODY}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </Table>
               </CardBody>

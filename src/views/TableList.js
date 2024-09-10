@@ -59,62 +59,31 @@ function Tables() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Simple Tableeee</CardTitle>
+                <CardTitle tag="h4">Message</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-center">Salary</th>
+                      <th>Number</th>
+                      <th>From</th>
+                      <th>Status</th>
+                      <th className="text-center">Message</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                    <tr>
-                      <td>{Item?.data?.[0]?.ToNumber}</td>
-                      <td>{Item?.data?.[0]?.fromNumber}</td>
-                      <td>{Item?.data?.[0]?.status}</td>
-                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
-                    </tr>
-                  </tbody>
+                 {Item?.data?.length>0? <tbody>
+                    {Item?.data?.map((item) => {
+                      return (
+                        <tr>
+                          <td>{item?.ToNumber}</td>
+                          <td>{item?.fromNumber}</td>
+                          <td>{item.status}</td>
+                          <td className="text-center">{item?.BODY}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>:<div style={{color:'white',fontSize:19,fontWeight:800}}>No Record Found</div>
+}
                 </Table>
               </CardBody>
             </Card>

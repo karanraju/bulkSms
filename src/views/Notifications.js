@@ -120,11 +120,27 @@ function Notifications() {
                 {listNumber?.data?.map(
                   (item) =>
                     item?.Country == "usa" && (
-                      <Alert color="info">
+                      <Alert
+                        style={{
+                          borderBottomColor: "gray",
+                          borderBottomWidth: "10%",
+                          backgroundColor: "transparent",
+                          borderColor: "gray",
+                          marginBottom: "2px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "100%",
+                            height: "0.2px",
+                            backgroundColor: "gray",
+                          }}
+                        ></div>
                         <div
                           style={{
                             justifyContent: "space-between",
                             display: "flex",
+                            marginTop: "10px",
                           }}
                         >
                           <span>{item?.PhoneNumber}</span>
@@ -151,11 +167,27 @@ function Notifications() {
                 {listNumber?.data?.map(
                   (item) =>
                     item?.Country == "canada" && (
-                      <Alert color="info">
+                      <Alert
+                        style={{
+                          borderBottomColor: "gray",
+                          borderBottomWidth: "10%",
+                          backgroundColor: "transparent",
+                          borderColor: "gray",
+                          marginBottom: "2px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "100%",
+                            height: "0.2px",
+                            backgroundColor: "gray",
+                          }}
+                        ></div>
                         <div
                           style={{
                             justifyContent: "space-between",
                             display: "flex",
+                            marginTop: "10px",
                           }}
                         >
                           <span>{item?.PhoneNumber}</span>

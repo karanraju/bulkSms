@@ -313,283 +313,176 @@ function PhoneBook() {
                       {" "}
                       <Input
                         style={{ width: 500, marginHorizontal: "20px" }}
-                        placeholder="UserName"
-                        className="border-2  border-primary"
+                        placeholder="Search"
+                        className="border-2  border-gray"
                         onChange={handleChange}
                       />
                     </CardTitle>
                   </div>
-                  <div style={{ width: 520, height: 30 }}></div>
+                  <div
+                    style={{ width: 520, height: 25, borderRadius: "10px" }}
+                  ></div>
                   <button type="button" onClick={toggleModalSearch}>
                     Add Number
                   </button>
                 </div>
               </CardHeader>
-              {dataList?.length > 0 ? (
-                <CardBody
-                  style={{
-                    height: "400px",
-                    scrollbarWidth: "none",
-                    overflow: "auto",
-                    // overflowY: "hidden",
-                  }}
-                >
-                  {dataList?.map((item) => (
-                    <Alert
-                      color={arrayNumber?.includes(item) ? "info" : "primary"}
-                    >
-                      <div
-                        style={{
-                          justifyContent: "space-between",
-                          display: "flex",
-                        }}
-                        onClick={() => setCondition(item)}
-                      >
-                        <span>{item.Name}</span>
-                        <span>{item.PhoneNumber}</span>
-                      </div>
-                    </Alert>
-                  ))}
-                  {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                  {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                  {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                  {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                </CardBody>
-              ) : (
+              {listNumber?.dataNumber?.length > 0 ? (
                 <div>
-                  <CardBody
+                  {dataList?.length > 0 ? (
+                    <CardBody
+                      style={{
+                        height: "300px",
+                        scrollbarWidth: "none",
+                        overflow: "auto",
+                        // overflowY: "hidden",
+                      }}
+                    >
+                      {dataList?.map((item) => (
+                        <Alert
+                          color={arrayNumber?.includes(item) ? "info" : ""}
+                        >
+                          <div
+                            style={{
+                              width: "100%",
+                              height: 0.3,
+                              // backgroundColor: "gray",
+                              marginBottom: "5px",
+                              // marginBottom: 10,
+                            }}
+                          ></div>
+                          <div
+                            style={{
+                              justifyContent: "space-between",
+                              display: "flex",
+                              padding: "10px",
+                            }}
+                            onClick={() => setCondition(item)}
+                          >
+                            <span>{item.Name}</span>
+                            <span>{item.PhoneNumber}</span>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "100%",
+                              height: 0.3,
+                              backgroundColor: "gray",
+                              // marginBottom: 10,
+                            }}
+                          ></div>
+                        </Alert>
+                      ))}
+                    </CardBody>
+                  ) : (
+                    <div>
+                      <CardBody
+                        style={{
+                          height: "400px",
+                          scrollbarWidth: "none",
+                          overflow: "auto",
+                          // overflowY: "hidden",
+                        }}
+                      >
+                        {listNumber?.dataNumber.map((item) => (
+                          <Alert
+                            style={{ marginBottom: "5px" }}
+                            color={arrayNumber?.includes(item) ? "info" : ""}
+                          >
+                            <div
+                              style={{
+                                justifyContent: "space-between",
+                                display: "flex",
+                                padding: 10,
+                              }}
+                              onClick={() => setCondition(item)}
+                            >
+                              <span>{item.Name}</span>
+                              <span>{item.PhoneNumber}</span>
+                            </div>
+                            <div
+                              style={{
+                                width: "100%",
+                                height: 0.5,
+                                backgroundColor: "gray",
+                                // marginTop: 10,
+                              }}
+                            ></div>
+                          </Alert>
+                        ))}
+                        {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                        {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                        {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                        {/* <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                  </div>
+                </Alert> */}
+                      </CardBody>
+                    </div>
+                  )}
+
+                  <div
                     style={{
-                      height: "400px",
-                      scrollbarWidth: "none",
-                      overflow: "auto",
-                      // overflowY: "hidden",
+                      margin: "20px",
+                      backgroundColor: "blue",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: 10,
+                      width: 70,
+                      borderRadius: 8,
                     }}
                   >
-                    {listNumber?.dataNumber.map((item) => (
-                      <Alert
-                        color={arrayNumber?.includes(item) ? "info" : "primary"}
-                      >
-                        <div
-                          style={{
-                            justifyContent: "space-between",
-                            display: "flex",
-                          }}
-                          onClick={() => setCondition(item)}
-                        >
-                          <span>{item.Name}</span>
-                          <span>{item.PhoneNumber}</span>
-                        </div>
-                      </Alert>
-                    ))}
-                    {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                    <div
+                      style={{ color: "white" }}
+                      onClick={() =>
+                        navigate("/typography", { state: arrayNumber })
+                      }
+                    >
+                      Send
+                    </div>
                   </div>
-                </Alert> */}
-                    {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                    {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                    {/* <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>{listNumber?.data?.[0]?.Name}</span>
-                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
-                  </div>
-                </Alert> */}
-                  </CardBody>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    fontWeight: 800,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginLeft: "50%",
+                  }}
+                >
+                  No Data Found
                 </div>
               )}
-
-              <div
-                style={{
-                  margin: "20px",
-                  backgroundColor: "blue",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: 10,
-                  width: 70,
-                  borderRadius: 8,
-                }}
-              >
-                <div
-                  style={{ color: "white" }}
-                  onClick={() =>
-                    navigate("/typography", { state: arrayNumber })
-                  }
-                >
-                  Send
-                </div>
-              </div>
             </Card>
           </Col>
-          {/* <Col md="6">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h4">CANADA</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-                <Alert color="info">
-                  <div
-                    style={{ justifyContent: "space-between", display: "flex" }}
-                  >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
-                  </div>
-                </Alert>
-              </CardBody>
-            </Card>
-          </Col> */}
-          {/* <Col md="12">
-            <Card>
-              <CardBody>
-                <div className="places-buttons">
-                  <Row>
-                    <Col className="ml-auto mr-auto text-center" md="6">
-                      <CardTitle tag="h4">
-                        Notifications Places
-                        <p className="category">Click to view notifications</p>
-                      </CardTitle>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="ml-auto mr-auto" lg="8">
-                      <Row>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("tl")}
-                          >
-                            Top Left
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("tc")}
-                          >
-                            Top Center
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("tr")}
-                          >
-                            Top Right
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="ml-auto mr-auto" lg="8">
-                      <Row>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("bl")}
-                          >
-                            Bottom Left
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("bc")}
-                          >
-                            Bottom Center
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("br")}
-                          >
-                            Bottom Right
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </div>
-              </CardBody>
-            </Card>
-          </Col> */}
         </Row>
       </div>
     </>

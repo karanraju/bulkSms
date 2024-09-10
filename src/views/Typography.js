@@ -34,7 +34,8 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import InputGroup from "react-bootstrap/InputGroup";
 import * as XLXS from "xlsx";
 import * as formik from "formik";
-import * as yup from "yup";
+import * as Yup from "yup";
+
 import { useLocation } from "react-router-dom";
 // import moment from "moment";
 
@@ -312,6 +313,7 @@ function Typography({}) {
     const payload = {
       Number: collectData?.number,
       message: collectData?.message,
+      startDate: startDate,
     };
     console.log("Success:", values, payload);
     const response = await fetch(`${process.env.REACT_APP_API}/api/twillio`, {
@@ -326,11 +328,10 @@ function Typography({}) {
     console.log("********", result);
   };
 
-  // useEffect(() => {
-  //   if (myEvents) {
-  //     handleMessage();
-  //   }
-  // }, [myEvents]);
+  const SignupSchema = Yup.object().shape({
+    number: Yup.string().required("Required"),
+    message: Yup.string().required("Required"),
+  });
 
   useEffect(() => {
     if (collectData) {
@@ -485,6 +486,7 @@ function Typography({}) {
                       number: "",
                       message: "",
                     }}
+                    validationSchema={SignupSchema}
                   >
                     {({
                       handleSubmit,
@@ -512,6 +514,12 @@ function Typography({}) {
                               }
                               onChange={handleChange}
                             />
+
+                            {errors.number && touched.number ? (
+                              <div style={{ color: "white" }}>
+                                {errors.number}
+                              </div>
+                            ) : null}
                             {/* <Form.Control
                               type="text"
                               name="firstName"
@@ -534,6 +542,11 @@ function Typography({}) {
                               placeholder="message"
                               onChange={handleChange}
                             />
+                            {errors.message && touched.message ? (
+                              <div style={{ color: "white" }}>
+                                {errors.message}
+                              </div>
+                            ) : null}
                             {/* <Form.Control
                               type="text"
                               name="lastName"
