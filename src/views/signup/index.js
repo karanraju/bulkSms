@@ -7,6 +7,7 @@ import PhoneInput from "antd-phone-input";
 import OtpInput from "react-otp-input";
 // import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 // import { NavLink, Link, useLocation } from "react-router-dom";
 
@@ -41,8 +42,6 @@ export const SignUp = () => {
   console.log("loginDataSatus", loginDataSatus);
 
   console.log("otp", loginData);
-
- 
 
   const onFinish = async (values) => {
     console.log("collectData", collectData);
@@ -89,13 +88,16 @@ export const SignUp = () => {
 
     console.log("payload", payload);
     // console.log("Success:", values, payload);
-    const response = await fetch(`${process.env.REACT_APP_API}/api/setpassword`, {
-      method: "PUT",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/api/setpassword`,
+      {
+        method: "PUT",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
     console.log("result", result);
     setStatusPassword(result);
@@ -180,153 +182,34 @@ export const SignUp = () => {
     }
   }, [collectPassword]);
 
+  const SignupSchema = Yup.object().shape({
+    Number: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    email: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    firstName: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    LastName: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    address: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    aboutMe: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+  });
+
   return (
-    // <div className="flex w-[100rem] items-center justify-center h-screen bg-slate-300 w-auto">
-    //   <div className="row">
-    //     <div>
-    //       <Image
-    //         width={400}
-    //         src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-    //       />
-    //     </div>
-    //     <div className="items-center border-4 bg-slate-200 justify-center flex px-10">
-    //       <div className="grow">
-    //         <Form
-    //           name="basic"
-    //           labelCol={{
-    //             span: 4,
-    //           }}
-    //           wrapperCol={{
-    //             span: 40,
-    //           }}
-    //           initialValues={{
-    //             remember: true,
-    //           }}
-    //           onFinish={onFinish}
-    //           onFinishFailed={onFinishFailed}
-    //           autoComplete="off"
-    //         >
-    //           <Form.Item
-    //             name="username"
-    //             rules={[
-    //               {
-    //                 required: true,
-    //                 message: "Please input your username!",
-    //               },
-    //             ]}
-    //           >
-    //             <div className="flex">
-    //               <MailOutlined className="text-2xl pr-2" />
-    //               <Input
-    //                 placeholder="UserName"
-    //                 className="border-2  border-current"
-    //               />
-    //             </div>
-    //           </Form.Item>
-
-    //           <Form.Item
-    //             name="password"
-    //             rules={[
-    //               {
-    //                 required: true,
-    //                 message: "Please input your password!",
-    //               },
-    //             ]}
-    //           >
-    //             <div className="flex">
-    //               <KeyOutlined className="text-2xl pr-2" />
-    //               <Input.Password
-    //                 placeholder="Password"
-    //                 className="border-2  border-current"
-    //               />
-    //             </div>
-    //           </Form.Item>
-
-    //           <Form.Item
-    //             name="confirmPassword"
-    //             dependencies={["password"]}
-    //             hasFeedback
-    //             rules={[
-    //               {
-    //                 required: true,
-    //                 message: "Please confirm your password!",
-    //               },
-    //               ({ getFieldValue }) => ({
-    //                 validator(_, value) {
-    //                   if (!value || getFieldValue("password") === value) {
-    //                     return Promise.resolve();
-    //                   }
-    //                   return Promise.reject(
-    //                     new Error(
-    //                       "The new password that you entered do not match!"
-    //                     )
-    //                   );
-    //                 },
-    //               }),
-    //             ]}
-    //           >
-    //             <div className="flex">
-    //               <KeyOutlined className="text-2xl pr-2" />
-    //               <Input.Password
-    //                 placeholder="Confirm Password"
-    //                 className="border-2  border-current"
-    //               />
-    //             </div>
-    //           </Form.Item>
-
-    //           <Form.Item
-    //             name="mobileNumber"
-    //             className="mobileNumber"
-    //             rules={[
-    //               {
-    //                 required: true,
-    //                 message: "Please input mobile number!",
-    //               },
-
-    //               {
-    //                 validator(_, { valid }) {
-    //                   if (valid()) return Promise.resolve();
-    //                   return Promise.reject("Invalid phone number");
-    //                 },
-    //               },
-    //             ]}
-    //           >
-    //             <PhoneInput enableSearch />
-    //           </Form.Item>
-
-    //           <Form.Item
-    //             name="remember"
-    //             valuePropName="checked"
-    //             wrapperCol={{
-    //               offset: 8,
-    //               span: 16,
-    //             }}
-    //             className="flex"
-    //           >
-    //             <Checkbox>Remember me</Checkbox>
-    //             <div className="text-yellow-600">SIGN IN</div>
-    //           </Form.Item>
-
-    //           <Form.Item
-    //             wrapperCol={{
-    //               offset: 12,
-    //               span: 16,
-    //             }}
-    //           >
-    //             <Button
-    //               type="primary"
-    //               htmlType="submit"
-    //               className=" bg-slate-600"
-    //             >
-    //               Submit
-    //             </Button>
-    //           </Form.Item>
-    //         </Form>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-
     <Row className="d-flex  align-items-center justify-content-center  p-5">
       <Col md="8">
         {statusPassword?.updated == true ? (
@@ -483,6 +366,7 @@ export const SignUp = () => {
             </CardHeader>
             <CardBody>
               <Formik
+                validationSchema={SignupSchema}
                 // validationSchema={schema}
                 onSubmit={(data) => setCollectData(data)}
                 initialValues={{
@@ -492,27 +376,27 @@ export const SignUp = () => {
                   firstName: "",
                   LastName: "",
                   address: "",
-                  city: "",
-                  country: "",
-                  zip: "",
+                  // city: "",
+                  // country: "",
+                  // zip: "",
                   aboutMe: "",
                 }}
               >
                 {({ handleSubmit, handleChange, values, touched, errors }) => (
                   <Form onSubmit={handleSubmit}>
-                    <Row>
-                      <Col className="pr-md-1" md="5">
-                        <FormGroup>
+                    <Row style={{ padding: "2px" }}>
+                      {/* <Col className="pr-md-1" md="5"> */}
+                      {/* <FormGroup>
                           <label>Company (disabled)</label>
                           <Input
                             defaultValue="Creative Code Inc."
-                            disabled
+                            // disabled
                             placeholder="Company"
                             type="text"
                           />
-                        </FormGroup>
-                      </Col>
-                      <Col className="px-md-1" md="3">
+                        </FormGroup> */}
+                      {/* </Col> */}
+                      <Col className="px-md-1" md="6">
                         <FormGroup>
                           <label>PhoneNumber</label>
                           <Input
@@ -523,8 +407,11 @@ export const SignUp = () => {
                             onChange={handleChange}
                           />
                         </FormGroup>
+                        {errors.Number && touched.Number ? (
+                          <div>{errors.Number}</div>
+                        ) : null}
                       </Col>
-                      <Col className="pl-md-1" md="4">
+                      <Col className="pl-md-1" md="6">
                         <FormGroup>
                           <label htmlFor="exampleInputEmail1">
                             Email address
@@ -536,6 +423,9 @@ export const SignUp = () => {
                             onChange={handleChange}
                           />
                         </FormGroup>
+                        {errors.Number && touched.Number ? (
+                          <div>{errors.Number}</div>
+                        ) : null}
                       </Col>
                     </Row>
                     <Row>
@@ -550,6 +440,9 @@ export const SignUp = () => {
                             onChange={handleChange}
                           />
                         </FormGroup>
+                        {errors.firstName && touched.firstName ? (
+                          <div>{errors.firstName}</div>
+                        ) : null}
                       </Col>
                       <Col className="pl-md-1" md="6">
                         <FormGroup>
@@ -561,6 +454,9 @@ export const SignUp = () => {
                             type="text"
                             onChange={handleChange}
                           />
+                          {errors.LastName && touched.LastName ? (
+                            <div>{errors.LastName}</div>
+                          ) : null}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -576,9 +472,12 @@ export const SignUp = () => {
                             onChange={handleChange}
                           />
                         </FormGroup>
+                        {errors.address && touched.address ? (
+                          <div>{errors.address}</div>
+                        ) : null}
                       </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                       <Col className="pr-md-1" md="4">
                         <FormGroup>
                           <label>City</label>
@@ -614,7 +513,7 @@ export const SignUp = () => {
                           />
                         </FormGroup>
                       </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
                       <Col md="8">
                         <FormGroup>
@@ -630,6 +529,9 @@ export const SignUp = () => {
                             onChange={handleChange}
                           />
                         </FormGroup>
+                        {errors.aboutMe && touched.aboutMe ? (
+                          <div>{errors.aboutMe}</div>
+                        ) : null}
                       </Col>
                     </Row>
                     <Button className="btn-fill" color="primary" type="submit">
