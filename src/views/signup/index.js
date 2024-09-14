@@ -152,7 +152,7 @@ export const SignUp = () => {
   };
 
   useEffect(() => {
-    if (loginDataSatus?.token) {
+    if (loginDataSatus?.token){
       navigate("/dashboard");
     }
   }, [loginDataSatus]);
@@ -209,6 +209,25 @@ export const SignUp = () => {
       .required("Required"),
   });
 
+  const passwordSchema = Yup.object().shape({
+    password: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    confirmPassword: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+  });
+
+  const loginSchema = Yup.object().shape({
+    Email: Yup.string().min(2, "Too Short!").required("Required"),
+    Password: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+  });
+
   return (
     <Row className="d-flex  align-items-center justify-content-center  p-5">
       <Col md="8">
@@ -220,6 +239,7 @@ export const SignUp = () => {
               </CardHeader>
               <CardBody>
                 <Formik
+                  validationSchema={loginSchema}
                   // validationSchema={schema}
                   onSubmit={(data) => setLoginData(data)}
                   initialValues={{
@@ -247,6 +267,9 @@ export const SignUp = () => {
                               onChange={handleChange}
                             />
                           </FormGroup>
+                          {errors.Email && touched.Email ? (
+                            <div>{errors.Email}</div>
+                          ) : null}
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
@@ -259,6 +282,9 @@ export const SignUp = () => {
                               onChange={handleChange}
                             />
                           </FormGroup>
+                          {errors.Password && touched.Password ? (
+                            <div>{errors.Password}</div>
+                          ) : null}
                         </Col>
                       </Row>
 
@@ -286,6 +312,7 @@ export const SignUp = () => {
               </CardHeader>
               <CardBody>
                 <Formik
+                  validationSchema={passwordSchema}
                   // validationSchema={schema}
                   onSubmit={(data) => setcollectPassword(data)}
                   initialValues={{
@@ -313,6 +340,9 @@ export const SignUp = () => {
                               onChange={handleChange}
                             />
                           </FormGroup>
+                          {errors.password && touched.password ? (
+                            <div>{errors.password}</div>
+                          ) : null}
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
@@ -325,6 +355,9 @@ export const SignUp = () => {
                               onChange={handleChange}
                             />
                           </FormGroup>
+                          {errors.confirmPassword && touched.confirmPassword ? (
+                            <div>{errors.confirmPassword}</div>
+                          ) : null}
                         </Col>
                       </Row>
 
