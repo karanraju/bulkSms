@@ -81,6 +81,7 @@ export const SignUp = () => {
   };
 
   const onsetPassword = async () => {
+    console.log("abcc",collectData?.Number)
     const payload = {
       password: collectPassword?.password,
       number: collectData?.Number,
@@ -152,7 +153,7 @@ export const SignUp = () => {
   };
 
   useEffect(() => {
-    if (loginDataSatus?.token){
+    if (loginDataSatus?.token) {
       navigate("/dashboard");
     }
   }, [loginDataSatus]);
@@ -181,6 +182,12 @@ export const SignUp = () => {
       onsetPassword();
     }
   }, [collectPassword]);
+
+  useEffect(() => {
+    if (loginDataSatus) {
+      localStorage.setItem("userData", JSON.stringify(loginDataSatus));
+    }
+  }, [loginDataSatus]);
 
   const SignupSchema = Yup.object().shape({
     Number: Yup.string()
