@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import UserFetch from "Hook/userData";
 import React, { useEffect, useState } from "react";
 
 // reactstrap components
@@ -31,15 +32,19 @@ import {
 function Tables() {
   const [Item, setItem] = useState();
   console.log("itemmm", Item?.data?.[0]);
+  const datas = UserFetch();
 
   const onLogin = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API}/smsData`, {
-      method: "GET",
-      // body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/smsData?id=${datas?.[0]?.data?.[0]?.id}`,
+      {
+        method: "GET",
+        // body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
     console.log("result", result);
     setItem(result);
@@ -49,8 +54,10 @@ function Tables() {
   };
 
   useEffect(() => {
-    onLogin();
-  }, []);
+    if (datas) {
+      onLogin();
+    }
+  }, [datas]);
 
   return (
     <>
@@ -71,19 +78,35 @@ function Tables() {
                       <th className="text-center">Message</th>
                     </tr>
                   </thead>
-                 {Item?.data?.length>0? <tbody>
-                    {Item?.data?.map((item) => {
-                      return (
-                        <tr>
-                          <td>{item?.ToNumber}</td>
-                          <td>{item?.fromNumber}</td>
-                          <td>{item.status}</td>
-                          <td className="text-center">{item?.BODY}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>:<div style={{color:'white',fontSize:19,fontWeight:800}}>No Record Found</div>
-}
+                  {Item?.data?.length > 0 ? (
+                    <tbody>
+                      {Item?.data?.map((item) => {
+                        return (
+                          <tr>
+                            <td>{item?.ToNumber}</td>
+                            <td>{item?.fromNumber}</td>
+                            <td>{item.status}</td>
+                            <td className="text-center">{item?.BODY}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  ) : (
+                    <div
+                      style={{
+                        color: "white",
+                        fontSize: 19,
+                        fontWeight: 800,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "200%",
+                        display: "flex",
+                        marginTop: "10%",
+                      }}
+                    >
+                      No Record Found
+                    </div>
+                  )}
                 </Table>
               </CardBody>
             </Card>

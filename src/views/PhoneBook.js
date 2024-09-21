@@ -40,6 +40,7 @@ import {
   Input,
   Form,
 } from "reactstrap";
+import UserFetch from "Hook/userData";
 
 function PhoneBook() {
   const notificationAlertRef = React.useRef(null);
@@ -52,8 +53,11 @@ function PhoneBook() {
   const [searchText, setSearchText] = React.useState("");
   const [arrayNumber, setArrayNumber] = React.useState([]);
   const [dataList, setdataList] = React.useState([]);
+  const [data] = UserFetch();
+
+  console.log("datata", data?.data?.[0]?.id);
   console.log("arrayNumber", dataList);
-  // console.log("dataList", dataList);
+  // console.log("dataList", dataList)to;
 
   const navigate = useNavigate();
 
@@ -84,6 +88,7 @@ function PhoneBook() {
 
   const onLogin = async () => {
     const payload = {
+      id: data?.data?.[0]?.id,
       Name: PhoneNumber?.Name,
       PhoneNumber: PhoneNumber?.PhoneNumber,
     };
@@ -107,13 +112,21 @@ function PhoneBook() {
   };
 
   const handleContact = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API}/listContact`, {
-      method: "GET",
-      // body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    console.log("sdfdfdf ", data);
+
+    const uuid = data?.data?.[0]?.id;
+
+    console.log("uuid", uuid);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/listContact?id=${data?.data?.[0]?.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
     console.log("result", result);
     console.log("result", result);
@@ -124,8 +137,10 @@ function PhoneBook() {
   };
 
   useEffect(() => {
-    handleContact();
-  }, []);
+    if (data) {
+      handleContact();
+    }
+  }, [data]);
 
   useEffect(() => {
     handleContact();
@@ -476,6 +491,7 @@ function PhoneBook() {
                     justifyContent: "center",
                     alignItems: "center",
                     marginLeft: "50%",
+                    marginBottom: "10%",
                   }}
                 >
                   No Data Found

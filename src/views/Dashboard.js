@@ -50,10 +50,14 @@ import {
   chartExample3,
   chartExample4,
 } from "variables/charts.js";
+import UserFetch from "Hook/userData";
 
 function Dashboard() {
   const [bigChartData, setbigChartData] = React.useState("data1");
   const [listNumber, setlistNumber] = React.useState();
+
+  const [data] = UserFetch();
+  console.log("dataaa", data);
   let number = listNumber?.data?.slice(0, 7);
   console.log("number", number);
   const setBgChartData = (name) => {
@@ -66,15 +70,19 @@ function Dashboard() {
   console.log("name", name);
 
   const [Item, setItem] = useState();
+  const datas = UserFetch();
 
   const onLogin = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API}/smsData`, {
-      method: "GET",
-      // body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/smsData?id=${datas?.[0]?.data?.[0]?.id}`,
+      {
+        method: "GET",
+        // body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
     console.log("result", result);
     setItem(result);
@@ -290,7 +298,6 @@ function Dashboard() {
                     <tbody>
                       {number?.map((item) => {
                         return (
-                          
                           <tr>
                             <td>
                               <FormGroup check>
