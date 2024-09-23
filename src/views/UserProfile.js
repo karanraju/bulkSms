@@ -41,7 +41,7 @@ function UserProfile() {
   const [SignupData, setSignupData] = useState();
   const [modalSearch, setmodalSearch] = useState(false);
   const [data] = UserFetch();
-  console.log("dataaaa", data?.data?.[0]);
+  console.log("dataaaa", data?.data?.[0]?.id);
   console.log("collectData", collectData);
 
   const onFinish = async (values) => {
@@ -60,13 +60,16 @@ function UserProfile() {
     };
 
     console.log("Success:", values, payload);
-    const response = await fetch(`${process.env.REACT_APP_API}/updateProfile`, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/updateProfile?id=${data?.data?.[0]?.id}`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const result = await response.json();
     setSignupData(result);
     setmodalSearch(true);
@@ -248,16 +251,19 @@ function UserProfile() {
 
               <CardBody>
                 <Formik
+                  enableReinitialize
                   // validationSchema={schema}
-                  onSubmit={(data) => setCollectData(data)}
+                  onSubmit={(data) => {
+                    setCollectData(data);
+                  }}
                   initialValues={{
                     // message: "",
                     // Number: "",
-                    email: "",
-                    firstName: "",
-                    LastName: "",
-                    address: "",
-                    aboutMe: "",
+                    email: data?.data?.[0]?.Email,
+                    firstName: data?.data?.[0]?.FirstName,
+                    LastName: data?.data?.[0]?.LastName,
+                    address: data?.data?.[0]?.Address,
+                    aboutMe: data?.data?.[0]?.AboutMe,
                   }}
                 >
                   {({
@@ -301,6 +307,7 @@ function UserProfile() {
                               name="email"
                               placeholder="mike@email.com"
                               type="email"
+                              defaultValue={data?.data?.[0]?.Email}
                               onChange={handleChange}
                             />
                           </FormGroup>
@@ -338,7 +345,7 @@ function UserProfile() {
                             <label>Address</label>
                             <Input
                               name="address"
-                              defaultValue={data?.data?.[0]?.Address}
+                              defaultValue={() => data?.data?.[0]?.Address}
                               placeholder="Home Address"
                               type="text"
                               onChange={handleChange}
