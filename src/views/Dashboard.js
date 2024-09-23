@@ -71,6 +71,7 @@ function Dashboard() {
 
   const [Item, setItem] = useState();
   const datas = UserFetch();
+  console.log("dataaaa", datas);
 
   const onLogin = async () => {
     const response = await fetch(

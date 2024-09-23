@@ -16,6 +16,7 @@
 
 */
 import { Formik } from "formik";
+import UserFetch from "Hook/userData";
 import React, { useEffect, useState } from "react";
 
 // reactstrap components
@@ -39,6 +40,8 @@ function UserProfile() {
   const [collectData, setCollectData] = useState();
   const [SignupData, setSignupData] = useState();
   const [modalSearch, setmodalSearch] = useState(false);
+  const [data] = UserFetch();
+  console.log("dataaaa", data?.data?.[0]);
   console.log("collectData", collectData);
 
   const onFinish = async (values) => {
@@ -254,9 +257,6 @@ function UserProfile() {
                     firstName: "",
                     LastName: "",
                     address: "",
-                    city: "",
-                    country: "",
-                    zip: "",
                     aboutMe: "",
                   }}
                 >
@@ -312,7 +312,7 @@ function UserProfile() {
                             <label>First Name</label>
                             <Input
                               name="firstName"
-                              defaultValue="Mike"
+                              defaultValue={data?.data?.[0]?.FirstName}
                               placeholder="Company"
                               type="text"
                               onChange={handleChange}
@@ -324,7 +324,7 @@ function UserProfile() {
                             <label>Last Name</label>
                             <Input
                               name="LastName"
-                              defaultValue="Andrew"
+                              defaultValue={data?.data?.[0]?.LastName}
                               placeholder="Last Name"
                               type="text"
                               onChange={handleChange}
@@ -338,7 +338,7 @@ function UserProfile() {
                             <label>Address</label>
                             <Input
                               name="address"
-                              defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                              defaultValue={data?.data?.[0]?.Address}
                               placeholder="Home Address"
                               type="text"
                               onChange={handleChange}
@@ -346,51 +346,14 @@ function UserProfile() {
                           </FormGroup>
                         </Col>
                       </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="4">
-                          <FormGroup>
-                            <label>City</label>
-                            <Input
-                              name="city"
-                              defaultValue="Mike"
-                              placeholder="City"
-                              type="text"
-                              onChange={handleChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="px-md-1" md="4">
-                          <FormGroup>
-                            <label>Country</label>
-                            <Input
-                              name="country"
-                              defaultValue="Andrew"
-                              placeholder="Country"
-                              type="text"
-                              onChange={handleChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="4">
-                          <FormGroup>
-                            <label>Postal Code</label>
-                            <Input
-                              placeholder="ZIP Code"
-                              name="zip"
-                              type="number"
-                              onChange={handleChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
+
                       <Row>
                         <Col md="8">
                           <FormGroup>
                             <label>About Me</label>
                             <Input
                               cols="80"
-                              defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                          that two seat Lambo."
+                              defaultValue={data?.data?.[0]?.AboutMe}
                               placeholder="Here can be your description"
                               rows="4"
                               type="textarea"
@@ -433,14 +396,19 @@ function UserProfile() {
                       className="avatar"
                       src={require("assets/img/emilyz.jpg")}
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">{data?.data?.[0]?.FirstName}</h5>
                   </a>
                   <p className="description">Ceo/Co-Founder</p>
                 </div>
-                <div className="card-description">
-                  Do not be scared of the truth because we need to restart the
-                  human foundation in truth And I love you like Kanye loves
-                  Kanye I love Rick Owens’ bed design but the back is...
+                <div
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                  }}
+                  className="card-description"
+                >
+                  {data?.data?.[0]?.AboutMe}
                 </div>
               </CardBody>
               <CardFooter>
