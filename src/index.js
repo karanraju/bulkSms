@@ -35,6 +35,7 @@ import { productApi } from "feature/apiSlice";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import Typography from "views/Typography";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(

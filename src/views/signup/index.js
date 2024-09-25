@@ -81,7 +81,7 @@ export const SignUp = () => {
   };
 
   const onsetPassword = async () => {
-    console.log("abcc",collectData?.Number)
+    console.log("abcc", collectData?.Number);
     const payload = {
       password: collectPassword?.password,
       number: collectData?.Number,
@@ -128,6 +128,31 @@ export const SignUp = () => {
     // console.log("********", result);
   };
 
+  const OtpVerify = async () => {
+    const payload = {
+      otpData: otp,
+    };
+
+    console.log("payload", payload);
+    // console.log("Success:", values, payload);
+    const response = await fetch(`${process.env.REACT_APP_API}/verifyOtp`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    if (result?.type == "otpMatch") {
+      setShowPassword(true);
+    }
+
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
   // const onFinishFailed = (errorInfo) => {
   //   console.log("Failed:", errorInfo);
   // };
@@ -159,9 +184,9 @@ export const SignUp = () => {
   }, [loginDataSatus]);
 
   useEffect(() => {
-    if (otp == signupData?.otp) {
-      console.log("hello");
-      setShowPassword(true);
+    if (otp) {
+      OtpVerify();
+      // setShowPassword(true);
     }
   }, [otp]);
 
@@ -585,6 +610,7 @@ export const SignUp = () => {
               <div onClick={() => setSignInShow(true)}>Sign In</div>
               {/* <div class="col">2 of 2</div> */}
             </div>
+
             <label>About Me</label>
             <CardFooter></CardFooter>
           </Card>

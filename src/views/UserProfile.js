@@ -40,6 +40,8 @@ function UserProfile() {
   const [collectData, setCollectData] = useState();
   const [SignupData, setSignupData] = useState();
   const [modalSearch, setmodalSearch] = useState(false);
+  const [userData, setUserData] = useState();
+  console.log("userData", userData?.data?.[0]?.Email);
   const [data] = UserFetch();
   console.log("dataaaa", data?.data?.[0]?.id);
   console.log("collectData", collectData);
@@ -75,6 +77,27 @@ function UserProfile() {
     setmodalSearch(true);
     console.log("********", result);
   };
+
+  const handleUserData = async (values) => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/userData?id=${data?.data?.[0]?.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+    setUserData(result);
+    // console.log("********", result);
+  };
+
+  useEffect(() => {
+    if (modalSearch) {
+      handleUserData();
+    }
+  }, [modalSearch]);
 
   useEffect(() => {
     if (collectData) {
@@ -259,11 +282,11 @@ function UserProfile() {
                   initialValues={{
                     // message: "",
                     // Number: "",
-                    email: data?.data?.[0]?.Email,
-                    firstName: data?.data?.[0]?.FirstName,
-                    LastName: data?.data?.[0]?.LastName,
-                    address: data?.data?.[0]?.Address,
-                    aboutMe: data?.data?.[0]?.AboutMe,
+                    email: userData?.data?.[0]?.Email,
+                    firstName: userData?.data?.[0]?.FirstName,
+                    LastName: userData?.data?.[0]?.LastName,
+                    address: userData?.data?.[0]?.Address,
+                    aboutMe: userData?.data?.[0]?.AboutMe,
                   }}
                 >
                   {({
@@ -403,7 +426,7 @@ function UserProfile() {
                       className="avatar"
                       src={require("assets/img/emilyz.jpg")}
                     />
-                    <h5 className="title">{data?.data?.[0]?.FirstName}</h5>
+                    <h5 className="title">{userData?.data?.[0]?.FirstName}</h5>
                   </a>
                   <p className="description">Ceo/Co-Founder</p>
                 </div>
@@ -415,10 +438,10 @@ function UserProfile() {
                   }}
                   className="card-description"
                 >
-                  {data?.data?.[0]?.AboutMe}
+                  {userData?.data?.[0]?.AboutMe}
                 </div>
               </CardBody>
-              <CardFooter>
+              {/* <CardFooter>
                 <div className="button-container">
                   <Button className="btn-icon btn-round" color="facebook">
                     <i className="fab fa-facebook" />
@@ -430,7 +453,7 @@ function UserProfile() {
                     <i className="fab fa-google-plus" />
                   </Button>
                 </div>
-              </CardFooter>
+              </CardFooter> */}
             </Card>
           </Col>
         </Row>
