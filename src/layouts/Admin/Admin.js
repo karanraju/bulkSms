@@ -33,6 +33,9 @@ import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 
 var ps;
 
+const username = localStorage.getItem("userData");
+const userData = JSON?.parse(username);
+
 function Admin(props) {
   const location = useLocation();
   const mainPanelRef = React.useRef(null);

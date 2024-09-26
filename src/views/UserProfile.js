@@ -100,6 +100,12 @@ function UserProfile() {
   }, [modalSearch]);
 
   useEffect(() => {
+    if (data?.data?.[0]?.id) {
+      handleUserData();
+    }
+  }, [data?.data?.[0]?.id]);
+
+  useEffect(() => {
     if (collectData) {
       onFinish();
     }
@@ -330,7 +336,7 @@ function UserProfile() {
                               name="email"
                               placeholder="mike@email.com"
                               type="email"
-                              defaultValue={data?.data?.[0]?.Email}
+                              defaultValue={userData?.data?.[0]?.Email}
                               onChange={handleChange}
                             />
                           </FormGroup>
@@ -342,7 +348,7 @@ function UserProfile() {
                             <label>First Name</label>
                             <Input
                               name="firstName"
-                              defaultValue={data?.data?.[0]?.FirstName}
+                              defaultValue={userData?.data?.[0]?.FirstName}
                               placeholder="Company"
                               type="text"
                               onChange={handleChange}
@@ -354,7 +360,7 @@ function UserProfile() {
                             <label>Last Name</label>
                             <Input
                               name="LastName"
-                              defaultValue={data?.data?.[0]?.LastName}
+                              defaultValue={userData?.data?.[0]?.LastName}
                               placeholder="Last Name"
                               type="text"
                               onChange={handleChange}

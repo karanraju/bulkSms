@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
@@ -35,9 +35,16 @@ import { productApi } from "feature/apiSlice";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import Typography from "views/Typography";
+import UserFetch from "Hook/userData";
+
+const username = localStorage.getItem("userData");
+const userData = JSON?.parse(username);
+console.log("userData", userData?.token);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+//
+// console.log("datassss", dat
 root.render(
   <ThemeContextWrapper>
     <BackgroundColorWrapper>
@@ -52,7 +59,13 @@ root.render(
 
           <Route
             path="*"
-            element={<Navigate to="/admin/dashboard" replace />}
+            element={
+              userData?.token ? (
+                <Navigate to="/admin/dashboard" replace />
+              ) : (
+                <Navigate to="/signup" replace />
+              )
+            }
           />
         </Routes>
         {/* </Provider> */}
